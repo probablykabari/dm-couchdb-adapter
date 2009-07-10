@@ -228,8 +228,8 @@ module DataMapper
       # @api private
       def view_request(query)
         keys = query.view_options.delete(:keys)
-        uri = "/#{self.escaped_db_name}/_view/" +
-          "#{query.model.base_model.to_s}/" +
+        uri = "/#{self.escaped_db_name}/_design/" +
+          "#{query.model.base_model.to_s}/" + "_view/" +
           "#{query.view}" +
           "#{query_string(query)}"
         if keys
@@ -264,7 +264,7 @@ module DataMapper
           key = "[#{key}]"
         end
 
-        request = Net::HTTP::Post.new("/#{self.escaped_db_name}/_slow_view#{query_string(query)}")
+        request = Net::HTTP::Post.new("/#{self.escaped_db_name}/_temp_view#{query_string(query)}")
         request["Content-Type"] = "application/json"
 
         couchdb_type_condition = ["doc.couchdb_type == '#{query.model.to_s}'"]

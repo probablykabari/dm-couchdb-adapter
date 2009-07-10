@@ -17,7 +17,7 @@ module DataMapper
         property :id, String, :key => true, :field => '_id', :nullable => true
         property :rev, String, :field => '_rev'
         property :couchdb_type, DataMapper::Types::Discriminator
-
+        
         class << self
 
           def couchdb_types
@@ -42,7 +42,12 @@ module DataMapper
           end
 
         end
-
+        
+        # view(:all){
+        #   {
+        #     "map"
+        #   }
+        # }
       end
     end
 
