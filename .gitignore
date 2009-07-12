@@ -1,2 +1,4 @@
 couchdb.stderr
 couchdb.stdout
+dm-couchdb-adapter.gemspec
+pkg/
