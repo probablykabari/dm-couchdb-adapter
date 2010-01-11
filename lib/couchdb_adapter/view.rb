@@ -17,7 +17,7 @@ module DataMapper
       end
 
       def create_getter
-        @model.class_eval <<-EOS, __FILE__, __LINE__
+        @model.class_eval <<-RUBY, __FILE__, __LINE__ + 1
           def self.#{@name}(*args)
             options = {}
             if args.size == 1 && !args.first.is_a?(Hash)
@@ -34,7 +34,7 @@ module DataMapper
               repository.read_many(query)
             end
           end
-        EOS
+        RUBY
       end
     end
   end

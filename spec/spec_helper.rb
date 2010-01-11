@@ -30,10 +30,10 @@ end
 
 if COUCHDB_AVAILABLE
   class Person
-    include DataMapper::CouchResource
     def self.default_repository_name
       :couch
     end
+    include DataMapper::CouchResource
 
     property :type, Discriminator
     property :name, String
