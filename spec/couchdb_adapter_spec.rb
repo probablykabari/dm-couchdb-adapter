@@ -2,10 +2,7 @@ require File.join(File.dirname(__FILE__), 'spec_helper.rb')
 
 if COUCHDB_AVAILABLE
   class ::User
-    def self.default_repository_name
-      :couch
-    end
-    include DataMapper::CouchResource
+    include DataMapper::Resource
 
     # regular properties
     property :name, String
@@ -30,10 +27,7 @@ if COUCHDB_AVAILABLE
   end
 
   class ::Company
-    def self.default_repository_name
-      :couch
-    end
-    include DataMapper::CouchResource
+    include DataMapper::Resource
 
     # This class happens to have similar properties
     property :name, String
@@ -43,10 +37,7 @@ if COUCHDB_AVAILABLE
   end
 
   class ::Person
-    def self.default_repository_name
-      :couch
-    end
-    include DataMapper::CouchResource
+    include DataMapper::Resource
 
     property :name, String
   end
@@ -56,10 +47,7 @@ if COUCHDB_AVAILABLE
   end
 
   class ::Broken
-    def self.default_repository_name
-      :couch
-    end
-    include DataMapper::CouchResource
+    include DataMapper::Resource
 
     property :couchdb_type, Discriminator
     property :name, String

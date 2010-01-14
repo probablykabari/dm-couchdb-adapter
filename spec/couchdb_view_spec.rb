@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), 'spec_helper.rb')
 
 class Viewable
-  include DataMapper::CouchResource
+  include DataMapper::Resource
   def self.default_repository_name
     :couch
   end
@@ -10,7 +10,7 @@ class Viewable
   property :open, Boolean
 end
 
-describe DataMapper::CouchResource::View do
+describe DataMapper::Resource::View do
   it "should have a view method" do
     Viewable.should respond_to(:view)
   end
@@ -22,7 +22,7 @@ describe DataMapper::CouchResource::View do
 
   it "should initialize a new Procedure instance" do
     proc = Viewable.view :by_name_desc
-    proc.should be_an_instance_of(DataMapper::CouchResource::View)
+    proc.should be_an_instance_of(DataMapper::Resource::View)
   end
 
   it "should create a getter method" do

@@ -31,7 +31,7 @@ begin
     gem.add_dependency("extlib", ">= 0.9.11")
     gem.add_dependency('mime-types', '~>1.15')
   end
-
+  Jeweler::GemcutterTasks.new
 rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
 end

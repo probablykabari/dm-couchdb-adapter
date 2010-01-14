@@ -16,7 +16,7 @@ if COUCHDB_AVAILABLE
 
       Object.send(:remove_const, :Message) if defined?(Message)
       class ::Message
-        include DataMapper::CouchResource
+        include DataMapper::Resource
         def self.default_repository_name
           :couch
         end
