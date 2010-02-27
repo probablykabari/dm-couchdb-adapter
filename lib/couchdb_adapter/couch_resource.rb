@@ -43,11 +43,6 @@ module DataMapper
 
         end
         
-        # view(:all){
-        #   {
-        #     "map"
-        #   }
-        # }
       end
     end
 

@@ -1,24 +1,16 @@
+require "spec"
 require 'pathname'
 require Pathname(__FILE__).dirname.parent.expand_path + 'lib/couchdb_adapter'
 
-COUCHDB_LOCATION = "couchdb://localhost:5984/test_cdb_adapter"
+# use local copy of dm-core if available
+local_dm_core_lib = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'dm-core', 'lib'))
+$LOAD_PATH.unshift(local_dm_core_lib) if File.directory?(local_dm_core_lib)
 
-DataMapper.setup(
-  :couch,
-  Addressable::URI.parse(COUCHDB_LOCATION)
-)
+# shared adapter spec
+require "dm-core/spec/adapter_shared_spec"
 
-#drop/recreate db
+DataMapper.setup(:default, "couchdb://localhost:5984/test_cdb_adapter")
 
-@adapter = DataMapper::Repository.adapters[:couch]
-begin
-  @adapter.send(:http_delete, "/#{@adapter.escaped_db_name}")
-  @adapter.send(:http_put, "/#{@adapter.escaped_db_name}")
-  COUCHDB_AVAILABLE = true
-rescue Errno::ECONNREFUSED
-  warn "CouchDB could not be contacted at #{COUCHDB_LOCATION}, skipping online dm-couchdb-adapter specs"
-  COUCHDB_AVAILABLE = false
-end
 
 begin
   gem 'dm-serializer'
@@ -28,20 +20,6 @@ rescue LoadError
   DMSERIAL_AVAILABLE = false
 end
 
-if COUCHDB_AVAILABLE
-  class Person
-    def self.default_repository_name
-      :couch
-    end
-    include DataMapper::CouchResource
-
-    property :type, Discriminator
-    property :name, String
-
-    view(:by_name) {{ "map" => "function(doc) { if (#{couchdb_types_condition}) { emit(doc.name, doc); } }" }}
-  end
-
-  class Employee < Person
-    property :rank, String
-  end
+Spec::Runner.configure do |config|
+  
 end
