@@ -1,5 +1,7 @@
 module DataMapper
-  class CouchCollection < Collection
-    attr_accessor :total_rows
+  module Couch 
+    class Collection < Collection
+      attr_accessor :total_rows, :offset
+    end
   end
 end

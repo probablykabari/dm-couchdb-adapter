@@ -6,12 +6,6 @@ require Pathname(__FILE__).dirname.parent.expand_path + 'lib/couchdb_adapter'
 local_dm_core_lib = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'dm-core', 'lib'))
 $LOAD_PATH.unshift(local_dm_core_lib) if File.directory?(local_dm_core_lib)
 
-# shared adapter spec
-require "dm-core/spec/adapter_shared_spec"
-
-DataMapper.setup(:default, "couchdb://localhost:5984/test_cdb_adapter")
-
-
 begin
   gem 'dm-serializer'
   require 'dm-serializer'
@@ -21,5 +15,8 @@ rescue LoadError
 end
 
 Spec::Runner.configure do |config|
-  
+  config.before(:all) do
+    @adapter = DataMapper.setup(:default, "couchdb://localhost:5984/test_cdb_adapter")
+    @repository = DataMapper.repository(@adapter.name)
+  end
 end

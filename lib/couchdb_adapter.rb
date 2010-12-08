@@ -1,11 +1,14 @@
 require 'rubygems'
 require 'pathname'
 
+
+gem "couchrest", "~> 0.35"
+require "couchrest"
+
+# load after because couchrest clones some methods in Extlib,
+# I'd rather just have the ones in the current Extlib
 gem 'dm-core', '~>0.10.2'
 require 'dm-core'
-
-gem "couchrest", "~> 0.34"
-require "couchrest"
 
 begin
   gem "json"

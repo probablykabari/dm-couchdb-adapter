@@ -40,6 +40,7 @@ require 'spec/rake/spectask'
 Spec::Rake::SpecTask.new(:spec) do |spec|
   spec.libs << 'lib' << 'spec'
   spec.spec_files = FileList['spec/**/*_spec.rb']
+  spec.fail_on_error = false
 end
 
 Spec::Rake::SpecTask.new(:rcov) do |spec|
